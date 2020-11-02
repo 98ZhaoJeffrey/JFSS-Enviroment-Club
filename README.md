@@ -1,2 +1,2 @@
 # JFSS-Enviroment-Club
-Website
+John Fraser Secondary School's offical enviromental club website
