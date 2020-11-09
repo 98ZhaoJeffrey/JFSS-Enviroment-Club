@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 import datetime
 
@@ -12,6 +13,10 @@ class promo(models.Model):
 
     def __str__(self):
         return (f"{self.title}")
+    
+    def clean(self):
+        if datetime.datetime.now() > self.date :
+            raise ValidationError("Date of promotion must be later than the current time")
 
 class resource(models.Model):
     title = models.CharField(max_length=140, help_text='Title for the promo')
@@ -23,7 +28,7 @@ class resource(models.Model):
         return (f"{self.title}")
 
 class email(models.Model):
-    email = models.EmailField(blank=False, primary_key=True)
+    email = models.EmailField(blank=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
