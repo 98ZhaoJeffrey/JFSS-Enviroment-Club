@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from .models import promo, resource, email
 from django.http import HttpResponse
-from django import forms
 import csv
 import os
 import datetime
@@ -18,7 +17,7 @@ def removeData(data):
         return(data.delete())
 
 class PromoAdmin(admin.ModelAdmin):
-    list_display = ('title','date', 'description','link','photo')
+    list_display = ('title','dateOfEvent', 'description','link','photo')
     search_fields = ['title']
     actions = ['delete_selected', 'delete_expired']
 
@@ -32,7 +31,7 @@ class PromoAdmin(admin.ModelAdmin):
                 removeData(obj)
 
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ('title','date', 'description', 'photo')
+    list_display = ('title','dateOfCreation', 'description', 'photo')
     search_fields =['title']
     actions = ['delete_selected']
 
@@ -52,6 +51,7 @@ def getEmails(self, request, queryset):
     return response
 
 class EmailAdmin(admin.ModelAdmin):
+    list_display = ('email','dateOfCreation')
     search_fields =['email']
     actions=[getEmails]
 

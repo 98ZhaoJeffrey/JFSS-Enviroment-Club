@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -38,7 +39,7 @@ def apiOverview(request):
 
 @api_view(['GET'])
 def promoList(request):
-    promos = promo.objects.all()
+    promos = promo.objects.raw("select * from enviromentApp_promo where (dateOfEvent > (SELECT strftime('%Y-%m-%d %H:%M:%S', datetime('now'))))")
     serializer = PromoSerializer(promos, many=True)
     return Response(serializer.data)
 
