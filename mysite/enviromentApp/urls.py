@@ -7,6 +7,7 @@ urlpatterns = [
     path('api/promo-list/', views.promoList, name='promotionsList'),
     path('api/resource-list/', views.resourceList, name='resourcesList'),
     path('api/add-email/', views.addEmail, name='addEmail'),
+    path('api/unsubscibe-email/<str:hash>', views.unsubEmail, name='unsubEmail'),
 
     path('resources/', views.resources, name='resources'),
     path('contacts/', views.contacts, name='contacts'),

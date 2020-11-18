@@ -41,17 +41,16 @@ class ResourceAdmin(admin.ModelAdmin):
 
 def getEmails(self, request, queryset):
     response = HttpResponse(content_type='text/csv')
-
     writer = csv.writer(response)
-    writer.writerow(['Email', 'Date Signed Up'])
+    writer.writerow(['Email', 'Date Signed Up', 'HashCode'])
 
     for address in queryset:
-        writer.writerow([address.email, address.date])
+        writer.writerow([address.email, address.dateOfCreation, address.hashCode])
     response['Content-Disposition'] = 'attachment; filename="email.csv"'
     return response
 
 class EmailAdmin(admin.ModelAdmin):
-    list_display = ('email','dateOfCreation')
+    list_display = ('email','dateOfCreation', 'hashCode')
     search_fields =['email']
     actions=[getEmails]
 

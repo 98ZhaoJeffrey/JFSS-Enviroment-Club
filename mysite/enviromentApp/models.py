@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 import datetime
 from django.utils import timezone
+import hashlib
 
 # Create your models here.
 
@@ -12,7 +13,6 @@ class promo(models.Model):
     link = models.URLField(blank=True, help_text='Link to the website assoicated')
     photo = models.ImageField(default='static/img/logo.png', upload_to='static/img/promo')
     
-
     def __str__(self):
         return (f"{self.title}")
     
@@ -32,6 +32,18 @@ class resource(models.Model):
 class email(models.Model):
     email = models.EmailField(blank=False, unique=True)
     dateOfCreation = models.DateTimeField(auto_now_add=True)
+    hashCode = models.CharField(max_length=32, blank=True, editable=False)
 
     def __str__(self):
         return (f"{self.email}")
+
+    def createHash(self):
+        emailDate = self.email + str(self.dateOfCreation)
+        return(hashlib.md5(emailDate.encode('utf8')).hexdigest())
+    
+    def save(self):
+        if self.hashCode == '':
+            self.hashCode = self.createHash()
+        super(email, self).save()
+
+    

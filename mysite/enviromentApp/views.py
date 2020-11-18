@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import promo, resource
+from .models import promo, resource, email
 from .serializers import PromoSerializer, ResourceSerializer, EmailSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -33,7 +33,8 @@ def apiOverview(request):
     api_urls = {
         'GET Promos': 'promo-list',
         'GET Resource' : 'resource-list',
-        'Add Email': 'add-email'
+        'POST Email': 'add-email',
+        'DELETE Email': 'unsubcribe-email'
     }
     return Response(api_urls)
 
@@ -55,7 +56,13 @@ def addEmail(request):
     serializer = EmailSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response('Your email has been added to our newsletter :)', status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        
+@api_view(['GET'])
+def unsubEmail(request, hash):
+    try:
+        deleteEmail = (email.objects.get(hashCode=hash)).delete()
+        return Response('Email has been removed :(', status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response("Email either doesn't exist or is already unsubscribed", status=status.HTTP_400_BAD_REQUEST)
