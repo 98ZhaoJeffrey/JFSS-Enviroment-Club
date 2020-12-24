@@ -1,32 +1,11 @@
 from datetime import datetime
-from django.shortcuts import render
-from django.http import HttpResponse
-
 from .models import promo, resource, email
 from .serializers import PromoSerializer, ResourceSerializer, EmailSerializer
-from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Welcome to JFSS Enviromental Club website!")
-
-def resources(request):
-    return HttpResponse("Here are the resources from members of our club!")
-
-def contacts(request):
-    return HttpResponse("If you have any questions, please contact us!")
-
-def newsletter(request):
-    return HttpResponse("Signup for newsletter.")
-
-def news(request):
-    return HttpResponse("Latest from climate news, updated weekly.")
-
-def promotions(request):
-    return HttpResponse("Promos brought to you by the enviromental club!")
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -40,7 +19,7 @@ def apiOverview(request):
 
 @api_view(['GET'])
 def promoList(request):
-    promos = promo.objects.raw("select * from enviromentApp_promo where (dateOfEvent > (SELECT strftime('%Y-%m-%d %H:%M:%S', datetime('now'))))")
+    promos = promo.objects.raw("select * from enviromentApp_promo where (date > (SELECT strftime('%Y-%m-%d %H:%M:%S', datetime('now'))))")
     serializer = PromoSerializer(promos, many=True)
     return Response(serializer.data)
 
@@ -56,13 +35,13 @@ def addEmail(request):
     serializer = EmailSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response('Your email has been added to our newsletter :)', status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'result': 'success', 'message': 'Your email has been added to our newsletter :)'}, status=status.HTTP_201_CREATED)
+    return Response({'result': 'error', 'message': serializer.errors['email'][0]}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def unsubEmail(request, hash):
     try:
-        deleteEmail = (email.objects.get(hashCode=hash)).delete()
+        email.objects.get(hashCode=hash).delete()
         return Response('Email has been removed :(', status=status.HTTP_200_OK)
     except Exception as e:
         return Response("Email either doesn't exist or is already unsubscribed", status=status.HTTP_400_BAD_REQUEST)

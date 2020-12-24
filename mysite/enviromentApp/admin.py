@@ -17,7 +17,7 @@ def removeData(data):
         return(data.delete())
 
 class PromoAdmin(admin.ModelAdmin):
-    list_display = ('title','dateOfEvent', 'description','link','photo')
+    list_display = ('title','date', 'description','link','photo')
     search_fields = ['title']
     actions = ['delete_selected', 'delete_expired']
 
@@ -31,7 +31,7 @@ class PromoAdmin(admin.ModelAdmin):
                 removeData(obj)
 
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ('title','dateOfCreation', 'description', 'photo')
+    list_display = ('title','date', 'description', 'photo')
     search_fields =['title']
     actions = ['delete_selected']
 
@@ -45,12 +45,12 @@ def getEmails(self, request, queryset):
     writer.writerow(['Email', 'Date Signed Up', 'HashCode'])
 
     for address in queryset:
-        writer.writerow([address.email, address.dateOfCreation, address.hashCode])
+        writer.writerow([address.email, address.date, address.hashCode])
     response['Content-Disposition'] = 'attachment; filename="email.csv"'
     return response
 
 class EmailAdmin(admin.ModelAdmin):
-    list_display = ('email','dateOfCreation', 'hashCode')
+    list_display = ('email','date', 'hashCode')
     search_fields =['email']
     actions=[getEmails]
 

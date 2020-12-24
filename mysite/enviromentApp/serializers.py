@@ -7,14 +7,14 @@ class PromoSerializer(serializers.ModelSerializer):
     class Meta:
         model = promo
         fields = '__all__'
-        read_only_fields = ['title', 'dateOfEvent', 'description', 'link', 'photo']
+        read_only_fields = ['title', 'date', 'description', 'link', 'photo']
         
 
 class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = resource
         fields = '__all__'
-        read_only_fields = ['title', 'dateOfCreation', 'description', 'photo']
+        read_only_fields = ['title', 'date', 'description', 'photo']
 
 class EmailSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(validators=[

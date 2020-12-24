@@ -1,0 +1,33 @@
+
+.Logo{
+    font-weight: bold;
+    font-size: 36px;
+    margin: 1rem;
+}
+
+.navbar-items ul{
+    margin: 0;
+    display: flex;
+}
+
+.navbar-link{
+    text-decoration: none;
+    color: black;
+    padding: 1.25rem;
+    display: block;
+    font-size: 1.25rem;
+    align-content: center;
+}
+
+.navbar-link:hover{
+    color: green
+}
+
+.toggle-button{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    right: 0;
+}
+
