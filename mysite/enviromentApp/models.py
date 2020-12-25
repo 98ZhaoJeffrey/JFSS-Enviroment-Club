@@ -11,13 +11,13 @@ class promo(models.Model):
     date = models.DateTimeField(default=timezone.now, help_text='Date for the promo. If it is year long, put the end date')
     description = models.TextField(blank=True, help_text='Description for the resource')
     link = models.URLField(blank=True, help_text='Link to the website assoicated')
-    photo = models.ImageField(default='frontend/static/img/logo.png', upload_to='frontend/public/img/promotions')
-    photo_description = models.TextField(blank=True, help_text='Description for the image')
+    photo = models.ImageField(default='frontend/public/img/logo.svg', upload_to='frontend/public/img/promotions')
+    photo_description = models.TextField(blank=False, help_text='Description for the image', default='Description for the image')
     def __str__(self):
         return (f"{self.title}")
     
     def clean(self):
-        if datetime.datetime.now() > self.dateOfEvent :
+        if datetime.datetime.now() > self.date :
             raise ValidationError("Date of promotion must be later than the current time")
     
 class resource(models.Model):
@@ -25,8 +25,8 @@ class resource(models.Model):
     description = models.TextField(blank=True, help_text='Description for the resource')
     date = models.DateTimeField(default=timezone.now, help_text='Date the resource was created')
     link = models.URLField(blank=True, help_text='Link to the website assoicated')
-    photo = models.ImageField(default='frontend/static/img/logo.png', upload_to='frontend/public/img/resources')
-    photo_description = models.TextField(blank=True, help_text='Description for the image')
+    photo = models.ImageField(default='frontend/public/img/logo.svg', upload_to='frontend/public/img/resources')
+    photo_description = models.TextField(blank=False, help_text='Description for the image', default='Description for the image')
 
     def __str__(self):
         return (f"{self.title}")
@@ -40,7 +40,7 @@ class email(models.Model):
         return (f"{self.email}")
 
     def createHash(self):
-        emailDate = self.email + str(self.dateOfCreation)
+        emailDate = self.email + str(self.date)
         return(hashlib.md5(emailDate.encode('utf8')).hexdigest())
     
     def save(self, *args, **kwargs):

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import './emailForm.css' 
+import React, { useState } from 'react'; 
 import {
     Box, 
     Button, 
@@ -8,7 +7,7 @@ import {
     FormHelperText,
     Input,
     VStack,
-    useToast
+    useToast,
     } from "@chakra-ui/react"
 
 function getTime5SecondsAgo(){
@@ -22,8 +21,8 @@ function EmailForm(){
     const toast = useToast()
 
     const handleClick = () =>{
-        let email = document.getElementById('EmailInput')
-        if(email.value === ''){
+        let emailAddress = document.getElementById('EmailInput')
+        if(emailAddress.value === ''){
             toast({
                 title: "Error",
                 description: "You must input a an email!",
@@ -35,15 +34,39 @@ function EmailForm(){
         else{
             const now = new Date()
             if(now - lastSubmit >= 5000){
-                toast({
-                    title: "Subscribed!",
-                    description: "You will now recieve our newsletter :)",
-                    status: "success",
-                    duration: 5000,
-                    isClosable: true,
-                })
-                email.value = ''
-                setlastSubmit(now)
+                fetch('http://127.0.0.1:8000/api/add-email/',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors',
+                    body: JSON.stringify({email:emailAddress.value})
+                    })
+                    .then(response=>{return response.json()})
+                    .then(data => {
+                        if(data.result === "success"){
+                            toast({
+                                title: "Subscribed!",
+                                description: data.message,
+                                status: "success",
+                                duration: 5000,
+                                isClosable: true,
+                            })
+                        setlastSubmit(now)
+                        emailAddress.value = ''
+                        }
+                        else{
+                            toast({
+                                title: "Oopsies",
+                                description: data.message,
+                                status: "error",
+                                duration: 5000,
+                                isClosable: true,
+                            })
+        
+                        } 
+
+                    })
             }
             else{
                 toast({
@@ -62,26 +85,23 @@ function EmailForm(){
         <Box
             bg='white'
             boxShadow='base'
-            width={[
-                "100%", // 0-30em
-                "50%", // 30em-48em
-                "45%", // 48em-62em
-                "30%", // 62em+
-              ]}
+            width="100%"
             borderWidth="1px" 
             borderRadius="lg"
             borderColor="#CBD5E0"
         >
             <VStack 
                 padding = "1rem"
+                w="100%"
             >
                 <FormControl id="email" >
-                    <FormLabel >Email address</FormLabel>
+                    <FormLabel fontSize="1.5rem" fontWeight="700">Email address</FormLabel>
                     <Input id = 'EmailInput' type="email" mb="1rem" placeholder="someone@email.com"/>
-                    <FormHelperText align="left" textColor="Black" mb="1rem">We'll never share your email.</FormHelperText>
+                    <FormHelperText align="left" textColor="Black" mb="1rem">We'll never share your email. You can always unsubsrcibe</FormHelperText>
                 </FormControl>
                 <Button onClick={handleClick} width="100%">Sign Up</Button>
             </VStack>
+
         </Box>
     )
 }

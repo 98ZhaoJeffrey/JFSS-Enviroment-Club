@@ -6,9 +6,10 @@ import {
     Button,
     Badge
     } from "@chakra-ui/react"
-//import logo from "../../assets/logo.svg"
+import formatPhoto from './formatPhoto'
+import formatDate from './formatDate'
 
-function Card(props){
+function PromoCard(props){
     return(
         <Box 
             maxW="sm" 
@@ -19,8 +20,8 @@ function Card(props){
             background="#E2E8F0"
         >
             <Image
-                src={'../../img/resources/1.png'}
-                alt={'Image for [Insert resource name]'}
+                src={formatPhoto(props.promotions.photo)}
+                alt={props.promotions.photo_description}
             />
             <Box>
                 <Box d="flex" alignItems="baseline">
@@ -30,15 +31,15 @@ function Card(props){
                         align="left"
                         m="1rem"
                     >
-                        {props.title}
+                        {props.promotions.title}
                     </Text>
                     <Badge 
-                        colorScheme="green" 
+                        colorScheme="red" 
                         fontSize = "1rem"
                         borderRadius="full" 
                         px="4"
                     >
-                        Resource
+                        Promotion
                     </Badge>
                 </Box>
                 <Text
@@ -46,22 +47,20 @@ function Card(props){
                     align="left"
                     ml="1rem"
                 >
-                    Date: {props.date}
+                    Date of Promotion: {formatDate(props.promotions.date)}
                 </Text>
                 <Text 
                 noOfLines={[1,2,3]}
                 align="left"
                 margin="1rem"
                 >
-                    Hey guys! While you’re shopping for the holidays make 
-                    sure you check out some of these awesome sustainable brands! 
-                    A new brand will be featured each day of this week:) 🛍🌱
+                    {props.promotions.description}
                 </Text>
                 <Button 
                     as="a" 
-                    href="https://www.instagram.com/p/CJE_b18BN6M/"
+                    href={props.promotions.link}
                     target="_blank"
-                    colorScheme="green"
+                    colorScheme="red"
                     align="left"
                     m="1rem"
                     display="block"
@@ -75,4 +74,4 @@ function Card(props){
     )
 }
 
-export default Card
+export default PromoCard

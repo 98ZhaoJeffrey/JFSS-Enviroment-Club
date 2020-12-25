@@ -11,7 +11,7 @@ import datetime
 
 def removeData(data):
     try:
-        if str(data.photo) != 'static/img/logo.png':
+        if str(data.photo) != 'frontend/public/img/logo.svg':
             os.remove(str(data.photo))
     finally:
         return(data.delete())

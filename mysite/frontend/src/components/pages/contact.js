@@ -16,16 +16,19 @@ import contact from "../../assets/contact.svg"
 
 function Contact() {
     return(
+            
         <Stack 
-            h="100vh"
             w="100%"
+            h="100vh"
             direction={["column","column","row"]}
-            background="#2D3748"
             alignContent="center"
             justifyContent="center"
             spacing={["0","2rem","5rem","10rem"]} 
+            background="#2D3748"
+            
         >
-            <Box alignItems="left" mt="8rem">
+            <Center>
+            <Box alignItems="left">
                 <Heading color="#ffffff" as="h1" size="4xl" m="auto" my="40px">Contact Us</Heading>
                 <Text fontSize="3xl" color="#ffffff" align="left" textAlign="center" my="40px">Got any questions? Feel free to reach out to us.</Text>
                 <Flex direction ="row" margin="auto">
@@ -73,16 +76,18 @@ function Contact() {
                         </Button>
                 </ButtonGroup>
             </Box>
+            </Center>
             <Center>
                 <Image
                     src={contact}
                     alt="homeImage"
                     boxSize={["0px","250px","400px","500px"]}
-                    align="center"
+                    display = {['None','Block','Block','Block']}
                 >
                 </Image>
             </Center>
-        </Stack>
+        </Stack>        
+
     )
 }
 
