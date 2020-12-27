@@ -9,11 +9,13 @@ import {
     VStack,
     useToast,
     } from "@chakra-ui/react"
+import Cookies from 'js-cookie'
 
 function getTime5SecondsAgo(){
     let dateNow = new Date();
     return(new Date(dateNow.getTime() - 5000))
 }
+
 
 function EmailForm(){
 
@@ -34,12 +36,14 @@ function EmailForm(){
         else{
             const now = new Date()
             if(now - lastSubmit >= 5000){
+                var csrftoken = Cookies.get('csrftoken');
                 fetch('http://127.0.0.1:8000/api/add-email/',{
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
                     },
-                    mode: 'cors',
+                    mode: 'same-origin',
                     body: JSON.stringify({email:emailAddress.value})
                     })
                     .then(response=>{return response.json()})
@@ -97,7 +101,7 @@ function EmailForm(){
                 <FormControl id="email" >
                     <FormLabel fontSize="1.5rem" fontWeight="700">Email address</FormLabel>
                     <Input id = 'EmailInput' type="email" mb="1rem" placeholder="someone@email.com"/>
-                    <FormHelperText align="left" textColor="Black" mb="1rem">We'll never share your email. You can always unsubsrcibe</FormHelperText>
+                    <FormHelperText align="left" textColor="Black" mb="1rem">We'll never share your email. You can always unsubscribe</FormHelperText>
                 </FormControl>
                 <Button onClick={handleClick} width="100%">Sign Up</Button>
             </VStack>

@@ -9,13 +9,6 @@ import datetime
 
 # Register your models here.
 
-def removeData(data):
-    try:
-        if str(data.photo) != 'frontend/public/img/logo.svg':
-            os.remove(str(data.photo))
-    finally:
-        return(data.delete())
-
 class PromoAdmin(admin.ModelAdmin):
     list_display = ('title','date', 'description','link','photo')
     search_fields = ['title']
@@ -23,12 +16,12 @@ class PromoAdmin(admin.ModelAdmin):
 
     def delete_queryset(self, request, queryset):
         for obj in queryset:
-            removeData(obj)
+            obj.delete()
     
     def delete_expired(self, request, queryset):
         for obj in queryset:
             if obj.date < datetime.datetime.now():
-                removeData(obj)
+                obj.delete()
 
 class ResourceAdmin(admin.ModelAdmin):
     list_display = ('title','date', 'description', 'photo')
@@ -37,7 +30,7 @@ class ResourceAdmin(admin.ModelAdmin):
 
     def delete_queryset(self, request, queryset):
         for obj in queryset:
-            removeData(obj)
+            obj.delete()
 
 def getEmails(self, request, queryset):
     response = HttpResponse(content_type='text/csv')

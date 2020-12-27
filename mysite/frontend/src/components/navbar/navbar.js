@@ -67,9 +67,6 @@ function Navbar(){
                     <li className="navbar-link">
                         <Link href='/newsletter'>Newsletter</Link>
                     </li>
-                    <li className="navbar-link">
-                        <Link href='/news'>News</Link>
-                    </li>
                 </ul>                       
                 <Button as="a" colorScheme="green" m="1rem" href = "/contact">
                     Contact Us

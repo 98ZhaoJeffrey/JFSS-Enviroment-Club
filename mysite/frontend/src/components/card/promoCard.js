@@ -6,8 +6,8 @@ import {
     Button,
     Badge
     } from "@chakra-ui/react"
-import formatPhoto from './formatPhoto'
 import formatDate from './formatDate'
+import formatPhoto from './formatPhoto';
 
 function PromoCard(props){
     return(

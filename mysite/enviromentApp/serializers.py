@@ -4,6 +4,7 @@ from rest_framework.validators import UniqueValidator
 
 #promo serializer
 class PromoSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = promo
         fields = '__all__'
@@ -11,6 +12,8 @@ class PromoSerializer(serializers.ModelSerializer):
         
 
 class ResourceSerializer(serializers.ModelSerializer):
+
+    photo = serializers.ImageField(max_length=None, allow_empty_file=True, use_url=True)
     class Meta:
         model = resource
         fields = '__all__'

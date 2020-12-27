@@ -4,6 +4,7 @@ from .serializers import PromoSerializer, ResourceSerializer, EmailSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -29,6 +30,7 @@ def resourceList(request):
     serializer = ResourceSerializer(resources, many=True)
     return Response(serializer.data)
 
+@csrf_exempt
 @api_view(['POST'])
 def addEmail(request):
     #check if the email exists and throw error when there isn't
@@ -38,10 +40,10 @@ def addEmail(request):
         return Response({'result': 'success', 'message': 'Your email has been added to our newsletter :)'}, status=status.HTTP_201_CREATED)
     return Response({'result': 'error', 'message': serializer.errors['email'][0]}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['POST'])
 def unsubEmail(request, hash):
     try:
         email.objects.get(hashCode=hash).delete()
-        return Response('Email has been removed :(', status=status.HTTP_200_OK)
+        return Response({'result': 'success', 'message':'Email has been removed :('}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response("Email either doesn't exist or is already unsubscribed", status=status.HTTP_400_BAD_REQUEST)
+        return Response({'result': 'error','message':"Email either doesn't exist or is already unsubscribed"}, status=status.HTTP_400_BAD_REQUEST)

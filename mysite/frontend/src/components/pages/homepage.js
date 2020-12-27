@@ -5,7 +5,7 @@ import Promotions from './promotion'
 import Resource from './resource'
 import Home from './home'
 import Contact from './contact'
-import News from './news'
+import Unsubscribe from './unsubscribe'
 
 function Homepage() {
     return (
@@ -23,11 +23,11 @@ function Homepage() {
                 <Route path ="/newsletter">
                     <Newsletter/>
                 </Route>
-                <Route path ="/news">
-                    <News/>
-                </Route>
                 <Route path ="/contact">
                     <Contact/>
+                </Route>
+                <Route path ="/unsubscribe">
+                    <Unsubscribe/>
                 </Route>
             </Switch>
         </Router>
