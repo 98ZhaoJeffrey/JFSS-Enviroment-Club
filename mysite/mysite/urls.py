@@ -13,9 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import django
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [ 
     path('api/', include('enviromentApp.urls')),
@@ -26,4 +30,7 @@ urlpatterns = [
     path('newsletter', TemplateView.as_view(template_name='index.html')),
     path('contact/', TemplateView.as_view(template_name='index.html')),
     path('unsubscribe/', TemplateView.as_view(template_name='index.html')),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
+    url(r'^media/(?P<path>.*)$', django.views.static.serve, {
+    'document_root': settings.MEDIA_ROOT})
 ]

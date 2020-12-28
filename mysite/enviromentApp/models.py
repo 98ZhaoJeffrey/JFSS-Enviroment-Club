@@ -3,6 +3,7 @@ from django.db import models
 import datetime
 from django.utils import timezone
 import hashlib
+from PIL import Image
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class promo(models.Model):
     date = models.DateTimeField(default=timezone.now, help_text='Date for the promo. If it is year long, put the end date')
     description = models.TextField(blank=True, help_text='Description for the resource')
     link = models.URLField(blank=True, help_text='Link to the website assoicated')
-    photo = models.ImageField(default='/logo.svg', help_text='There is a bug with looking up images when you click on the link. You must change media to static and it will work')
+    photo = models.ImageField(default='/logo.svg', help_text='Try to make each photo the same size(i.e 1080x1080)')
     photo_description = models.TextField(blank=False, help_text='Description for the image', default='Description for the image')
     def __str__(self):
         return (f"{self.title}")
@@ -25,7 +26,7 @@ class resource(models.Model):
     description = models.TextField(blank=True, help_text='Description for the resource')
     date = models.DateTimeField(default=timezone.now, help_text='Date the resource was created')
     link = models.URLField(blank=True, help_text='Link to the website assoicated')
-    photo = models.ImageField(default='/logo.svg', help_text='There is a bug with looking up images when you click on the link. You must change media to static and it will work')
+    photo = models.ImageField(default='/logo.svg', help_text='Try to make each photo the same size(i.e 1080x1080)')
     photo_description = models.TextField(blank=False, help_text='Description for the image', default='Description for the image')
 
     def __str__(self):
