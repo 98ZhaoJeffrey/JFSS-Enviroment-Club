@@ -93,10 +93,9 @@ function Navbar(){
                             <DrawerHeader>Feel free to explore!</DrawerHeader>
                             <DrawerBody>
                                 <VStack>
-                                    <Link href='/news'>Resources</Link>
-                                    <Link href='/news'>Promotions</Link>
-                                    <Link href='/news'>Newsletter</Link>
-                                    <Link href='/news'>News</Link>
+                                    <Link href='/resources'>Resources</Link>
+                                    <Link href='/promotions'>Promotions</Link>
+                                    <Link href='/newsletter'>Newsletter</Link>
                                     <Button as="a" colorScheme="green" href = "/contact">Contact Us</Button> 
                                 </VStack>
                             </DrawerBody>

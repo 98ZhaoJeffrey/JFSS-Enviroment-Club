@@ -28,7 +28,8 @@ function EmailUnsubForm(){
         }
         else{
             const csrftoken = Cookies.get('csrftoken');
-            const url = 'http://127.0.0.1:8000/api/unsubscribe-email/' + code.value
+            const currLink = window.location.href.split('/')
+            const url = currLink[0] + '//' + currLink[2] + '/api/unsubscribe-email/' + code.value
             fetch(url,{
                 method: 'POST',
                 headers: {

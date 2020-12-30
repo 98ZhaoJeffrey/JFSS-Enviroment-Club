@@ -7,7 +7,6 @@ import {
     Badge
     } from "@chakra-ui/react"
 import formatDate from './formatDate'
-import formatPhoto from './formatPhoto';
 
 function PromoCard(props){
     return(
@@ -20,7 +19,7 @@ function PromoCard(props){
             background="#E2E8F0"
         >
             <Image
-                src={formatPhoto(props.promotions.photo)}
+                src={props.promotions.photo}
                 alt={props.promotions.photo_description}
             />
             <Box>

@@ -37,7 +37,9 @@ function EmailForm(){
             const now = new Date()
             if(now - lastSubmit >= 5000){
                 var csrftoken = Cookies.get('csrftoken');
-                fetch('http://127.0.0.1:8000/api/add-email/',{
+                const currLink = window.location.href.split('/')
+                const url = currLink[0] + '//' + currLink[2] + '/api/add-email/'
+                fetch(url,{
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

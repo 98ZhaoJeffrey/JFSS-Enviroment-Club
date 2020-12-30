@@ -11,14 +11,14 @@ function Resource() {
     const [resources, setResources] = useState([])
 
     useEffect(() => {
-        console.log("Getting data for resources")
-        fetch('http://127.0.0.1:8000/api/resource-list/')
+        const currLink = window.location.href.split('/')
+        const url = currLink[0] + '//' + currLink[2] + '/api/resource-list/'
+        fetch(url)
         .then(res => res.json())
         .then(data =>{
             setResources(data)  
         } )
     }, [])
-
     const resourceComponent = resources.map(r => <ResourceCard key={r.id} resource = {r}/>)
     const displayHeading = resources.length > 0? "None" : "Block"
     return(

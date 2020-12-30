@@ -6,7 +6,6 @@ import {
     Button,
     Badge
     } from "@chakra-ui/react"
-import formatPhoto from './formatPhoto'
 import formatDate from './formatDate'
 
 
@@ -21,7 +20,7 @@ function ResourceCard(props){
             background="#E2E8F0"
         >
             <Image
-                src={formatPhoto(props.resource.photo)}
+                src={props.resource.photo}
                 alt={props.resource.photo_description}
             />
             <Box>
