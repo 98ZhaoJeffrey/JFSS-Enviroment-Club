@@ -47,7 +47,7 @@ function Contact() {
                             Our Club
                         </Button>
                 </Flex>
-                <Text fontSize="3xl" color="#ffffff" my="40px">Message one of our admins for a faster response. (Not Khushi)</Text>
+                <Text fontSize="3xl" color="#ff2d00" my="40px">Message one of our admins for a faster response. (Not Khushi)</Text>
                 <ButtonGroup variant="outline" spacing="6">
                         <Button
                             size="lg" 
@@ -59,7 +59,7 @@ function Contact() {
                             h="65px"
                             fontSize="1.5rem"
                         > 
-                            Aisha
+                            Jinglei
                         </Button>
                         <Spacer/>
                         <Button
@@ -68,10 +68,22 @@ function Contact() {
                             leftIcon = {<FaInstagram/>} 
                             as="a" 
                             target="_blank" 
-                            href="https://www.instagram.com/aissha.c/"
+                            href="https://www.instagram.com/khushi.niranjan/"
                             h="65px"
                             fontSize="1.5rem"
                         > 
+                            Khushi
+                        </Button>
+                </ButtonGroup>
+            </Box>
+            </Center>
+            <Center>
+                <Image
+                    src={contact}
+                    alt="homeImage"
+                    boxSize={["0px","250px","400px","500px"]}
+                    display = {['None','Block','Block','Block']}
+                >
                 </Image>
             </Center>
         </Stack>        
@@ -80,3 +92,4 @@ function Contact() {
 }
 
 export default Contact
+
