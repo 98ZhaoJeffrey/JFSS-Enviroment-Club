@@ -59,7 +59,7 @@ function Contact() {
                             h="65px"
                             fontSize="1.5rem"
                         > 
-                            Jinglei
+                            Aisha
                         </Button>
                         <Spacer/>
                         <Button
@@ -68,22 +68,10 @@ function Contact() {
                             leftIcon = {<FaInstagram/>} 
                             as="a" 
                             target="_blank" 
-                            href="https://www.instagram.com/khushi.niranjan/"
+                            href="https://www.instagram.com/aissha.c/"
                             h="65px"
                             fontSize="1.5rem"
                         > 
-                            Khushi
-                        </Button>
-                </ButtonGroup>
-            </Box>
-            </Center>
-            <Center>
-                <Image
-                    src={contact}
-                    alt="homeImage"
-                    boxSize={["0px","250px","400px","500px"]}
-                    display = {['None','Block','Block','Block']}
-                >
                 </Image>
             </Center>
         </Stack>        
